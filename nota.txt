@@ -1,0 +1,20 @@
+***DOKUMENTASI***
+
+
+NOTA::
+-Folder Info digunakan untuk menyimpan hasil ketika membuat sample
+-Folder neg digunakan untuk menyimpan gambar negatif yang sudah di resize menjadi 100 x 100
+  dengan asumsi gambar positifnya ada setengah resolusi dari gambar negatif (positif = 50x50)
+
+
+
+MEMBUAT SAMPLING:
+-membuat sample positif (untuk mendapatkan file info), sample ini di gunakan untuk training data selasnjutnya
+opencv_createsamples -img positif.jpg -bg bg.txt -info info/info.lst -pngoutput info -maxxangle 0.5 -maxyangle -0.5 maxzangle 0.5 -num 26
+
+-membuat file vector:
+opencv_createsamples -info info/info.lst -num 26 -w 20 -h 20 -vec positives.vec
+
+
+UNTUK TRAINING:
+opencv_traincascade -data data -vec positives.vec -bg bg.txt -numPos 1800 -numNeg 900 -numStages 10 -w 20 -h 20
